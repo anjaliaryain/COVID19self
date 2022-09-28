@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Bot</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+  href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js">
+ </script>
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-body">
+            <form id="form" target="_self" onsubmit="return postToGoogle();" action="" >
+            <h4 class="card-title">Patient Details</h4>
+            <label>Patient's Full Name<br></label>
+            <input type="text" id="full_name" name="entry.1622730519" placeholder="First Name" style="width: 313px;">
+            <label>Patient's Telephone No.</label>
+            <input type="tel" id="phone_no" name="entry.1130318791" placeholder="Phone Number" style="width: 313px;">
+            <label style="width: 134px;">Pin Code</label>
+            <input type="text" id="pin_code" name="entry.371963038" placeholder="Pin Code" style="width: 313px;">
+            <select id="cinema" name="entry.1725491971" placeholder="Select Cinema" required>
+            <option value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Others">Others</option>
+            </select> 
+
+           
+            <button class="btn btn-primary" type="submit" style="margin: 4px;padding: 7px;height: 40px;">Submit</button>
+        </form></div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+function postToGoogle() {
+                var field1 = $("#full_name").val();
+                var field2 = $("#phone_no").val();
+                var field3 = $("#pin_code").val();
+                var field4 = $("#cinema option:selected").text();
+                
+        
+        if(field1 == ""){
+          alert('Please Fill Your Name');
+          document.getElementById("full_name").focus();
+          return false;
+        }
+        if(field2 == "" || field2.length > 10 || field2.length < 10){
+          alert('Please add your 10 Digit phone no');
+          document.getElementById("phone_no").focus();
+          return false;
+        }
+        if(field3 == "" ){
+          alert('Please add your pincode');
+          document.getElementById("pin_code").focus();
+          return false;
+        }
+        sessionStorage.setItem("field1", field1);
+        sessionStorage.setItem("field2", field2);
+        sessionStorage.setItem("field3", field3);
+        sessionStorage.setItem("field4", field4);
+
+
+        
+  
+                $.ajax({
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSdQZSVKt1mjIyHyNyP7fjNMCwbsO6shQvTgN9410C-GvcWhiw/formResponse?",
+          data: {"entry.1622730519": field1, "entry.1130318791": field2, "entry.371963038": field3, "entry.1725491971": field4},
+                    type: "POST",
+                    dataType: "xml",
+                    success: function(d)
+          {
+          },
+          error: function(x, y, z)
+            {
+
+              $('#success-msg').show();
+              $('#form').hide();
+              window.location.replace("foreign.html")
+              
+            }
+                });
+        return false;
+            }
+</script>
+    
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Bot</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+  href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+ <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js">
+ </script>
+</head>
+
+<body onload="resultper()">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">COVID 19</h4>
+            <h6 class="text-muted card-subtitle mb-2">RESULT</h6>
+            <div class="card"><img class="card-img-top w-100 d-block" src="assets/img/COVID-19%20by%20Slidesgo.png">
+                <div class="card-body">
+                    <h4 class="card-title" id="resultper" >title</h4>
+                   <center> 
+                    <h4 class="card-title" id="lowrisk" style="color: green"></h4>
+                    <h4 class="card-title" id="mediumrisk" style="color: yellow"></h4>
+                    <h4 class="card-title" id="highrisk" style="color: red"></h4></center>
+                    <p class="card-text">This result is generated based on your inputs. If this result is above 50% then please contact the nearest health care facilities or Doctor.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">NEXT STEP</h4>
+           <a href="tel:+91-11-23978046"> <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" style="margin: -12px;color: rgb(255,0,0);">Call for Help</h4>
+                </div>
+            </div></a>
+        </div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        function resultper(){
+            var field1 = sessionStorage.getItem("field1");
+            var field2 = sessionStorage.getItem("field2");
+            var field3 = sessionStorage.getItem("field3");
+            var field4 = sessionStorage.getItem("field4");
+       var foreign = parseInt(sessionStorage.getItem("foreign"));
+       var incontact = parseInt(sessionStorage.getItem("incontact"));
+        var fever = parseInt(sessionStorage.getItem("fever"));;
+      var cough = parseInt(sessionStorage.getItem("cough"));
+        var shortness = parseInt(sessionStorage.getItem("shortness"));
+        var fatigue = parseInt(sessionStorage.getItem("fatigue"));
+       var diarrhea = parseInt(sessionStorage.getItem("diarrhea"));
+        var chronic = parseInt(sessionStorage.getItem("chronic"));
+       var result=parseInt((foreign+incontact+fever+cough+shortness+fatigue+diarrhea+chronic));
+       resultper=(result/15)*100;
+       var n= parseInt(resultper.toFixed(2));
+        $.ajax({
+                    url: "https://docs.google.com/forms/d/e/1FAIpQLSdQZSVKt1mjIyHyNyP7fjNMCwbsO6shQvTgN9410C-GvcWhiw/formResponse?",
+                    data: {"entry.1622730519": field1, "entry.1130318791": field2, "entry.371963038": field3, "entry.1725491971": field4,"entry.560677067": foreign, "entry.932476257": incontact, "entry.1374930406": fever, "entry.2131871357": cough, "entry.2055731472": shortness, "entry.877768396": fatigue, "entry.907928380": diarrhea, "entry.1048321544": chronic,"entry.330819074": n },
+                    type: "POST",
+                    dataType: "xml",
+                    success: function(d)
+                    {
+                    },
+                    error: function(x, y, z)
+                        {
+
+                            $('#success-msg').show();
+                            $('#form').hide();
+                            
+                        }
+                });
+        if (n<=40) {
+            document.getElementById('lowrisk').innerHTML= ("LOW RISK");
+        } else if (n>40 && n<=70) {
+            document.getElementById('mediumrisk').innerHTML=("MEDIUM RISK");
+        }else document.getElementById('highrisk').innerHTML=("HIGH RISK");
+               
+        document.getElementById('resultper').innerHTML =("Hey &nbsp")+field1+(",The chance of infection is ")+ n + ("%") ;
+
+      }
+      
+    </script>
+</body>
+
+</html>
