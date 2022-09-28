@@ -13,11 +13,11 @@ The project started with the findings that the symptoms of COVID-19 infection ar
 
 ## Acknowledgements
 
- This project was part of the original project Covid19 Self Assessment Test and Tracker. I was the part of the team which was responsible for the development and managment of the projects. Later, this project was adopted by AICTE for their Helpline portal.
+ This project was a part (Only Front end in the repository) of the original project Covid19 Self Assessment Test and Tracker. I was the part of the team which was responsible for the development and managment of the projects. Later, this project was adopted by AICTE for their Helpline portal.
 ## Authors
 
-- [@anjaliaryain](https://github.com/anjaliaryain)
-- [@utkarshdevlab](https://github.com/utkarshdevlab)
+- [@anjaliaryain](https://github.com/anjaliaryain) - Front END
+- [@utkarshdevlab](https://github.com/utkarshdevlab) - Back END
 
 
 ## Badges
